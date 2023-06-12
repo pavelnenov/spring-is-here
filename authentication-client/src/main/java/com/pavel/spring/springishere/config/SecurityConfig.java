@@ -63,8 +63,8 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider() {
         return new DaoAuthenticationProvider() {{
             setUserDetailsService(userDetailsService());
-            setPasswordEncoder(new BCryptPasswordEncoder());
-//            setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+//            setPasswordEncoder(new BCryptPasswordEncoder());
+            setPasswordEncoder(NoOpPasswordEncoder.getInstance());
         }};
     }
 
