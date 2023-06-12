@@ -1,0 +1,21 @@
+@startuml
+package "Telemedicine Platform" {
+  [User Service] -down-> [MySQL: User DB]
+  [Doctor Service] -down-> [MySQL: Doctor DB]
+  [Appointment Service] -down-> [MySQL: Appointment DB]
+  [Consultation Service]
+  [Prescription Service] -down-> [MySQL: Prescription DB]
+  [Notification Service] -down-> [Redis: Cache]
+  [Health Monitoring Service] -down-> [Cassandra: Health Data]
+  [API Gateway] -down-> [User Service]
+  [API Gateway] -down-> [Doctor Service]
+  [API Gateway] -down-> [Appointment Service]
+  [API Gateway] -down-> [Consultation Service]
+  [API Gateway] -down-> [Prescription Service]
+  [API Gateway] -down-> [Notification Service]
+  [API Gateway] -down-> [Health Monitoring Service]
+  [Kafka] -left-> [Appointment Service]
+  [Kafka] -left-> [Notification Service]
+  [Kafka] -left-> [Health Monitoring Service]
+}
+@enduml
