@@ -1,5 +1,28 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "io.spring.dependency-management") {
+                useModule("io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:1.0.11.RELEASE")
+            }
+        }
+    }
+
+    plugins {
+        id 'java'
+        id 'org.springframework.boot' version '2.7.12'
+        id 'io.spring.dependency-management' version '1.1.0'
+        id 'com.google.cloud.tools.jib' version '3.3.2'
+    }
+}
+
 rootProject.name = 'spring-is-here'
 include 'authentication-client'
 include 'api-gateway'
 include 'api-gateway'
-

@@ -1,0 +1,20 @@
+server:
+  servlet:
+    context-path: /app
+  port: 8081
+#  ssl:
+#    key-store: keystore.p12
+#    key-store-password: pavelnenov
+#    key-store-type: PKCS12
+#    key-alias: selfsigned_localhost_sslserver
+
+spring:
+  application:
+    name: authentication-client
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+logging:
+  level:
+    org.springframework.web: DEBUG

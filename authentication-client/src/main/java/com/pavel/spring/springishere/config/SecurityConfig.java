@@ -38,6 +38,7 @@ public class SecurityConfig {
             "/app/swagger-ui.html",
             "/webjars/**",
             "/v3/api-docs/**",
+            "/v2/api-docs/**",
             "/swagger-ui/**",
 
             // Auth controller

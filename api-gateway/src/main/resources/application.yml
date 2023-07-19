@@ -1,0 +1,18 @@
+server:
+    port: 8080
+    servlet:
+      context-path: /app
+
+spring:
+  main:
+    web-application-type: reactive
+
+  cloud:
+    gateway:
+      routes:
+        - id: AuthenticationClient
+          uri: http://localhost:8081
+          predicates:
+            - Path=/service1-api-docs
+          filters:
+            - RewritePath=/service1-api-docs, /v2/api-docs
