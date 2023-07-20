@@ -1,13 +1,18 @@
 package com.pavel.spring.springishere.controllers;
 
-import com.pavel.spring.springishere.config.*;
-import com.pavel.spring.springishere.dao.UserDao;
-import com.pavel.spring.springishere.dto.*;
+import com.pavel.spring.springishere.config.JwtUtil;
+import com.pavel.spring.springishere.dto.AuthenticationRequest;
 import com.pavel.spring.springishere.repository.UserRepository;
-import org.springframework.http.*;
-import org.springframework.security.authentication.*;
-import org.springframework.security.core.userdetails.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -31,20 +36,20 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<String> authenticate(@RequestBody AuthenticationRequest request) {
-        authenticationManager.authenticate(
+        Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-        UserDao user = userRepository.findByEmail(request.getEmail());
-        final UserDetails userDetails = User.builder()
-                .username(user.email())
-                .password(user.password())
-                .authorities("USER")
-                .build();
+//        UserDao user = userRepository.findByEmail(request.getEmail());
+//        final UserDetails userDetails = User.builder()
+//                .username(user.email())
+//                .password(user.password())
+//                .authorities("USER")
+//                .build();
 
-        if (user == null) {
+        if (!authentication.isAuthenticated()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } else {
-            final String token = jwtUtil.generateToken(userDetails);
+            final String token = jwtUtil.generateToken((UserDetails) authentication.getPrincipal());
             return ResponseEntity.ok(token);
         }
     }
