@@ -1,0 +1,37 @@
+#version: '3.8'
+#
+#services:
+#  auth-client-db:
+#    image: mysql:8.0
+#    cap_add:
+#      - SYS_NICE
+#    command: --default-authentication-plugin=mysql_native_password
+#    restart: always
+#    environment:
+#      MYSQL_ROOT_PASSWORD: sekret
+#    volumes:
+#      - ./authentication-client/db_data:/var/lib/mysql
+#      - ./authentication-client/db_init:/docker-entrypoint-initdb.d/init.sql
+#    ports:
+#      - "3306:3306"
+
+version: '3.8'
+
+services:
+  auth-client-db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: sekret
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./authentication-client/db_data:/var/lib/mysql
+      - ./authentication-client/db_init:/docker-entrypoint-initdb.d/
+
+#  adminer:
+#    image: adminer
+#    restart: always
+#    ports:
+#      - 8180:8180
+

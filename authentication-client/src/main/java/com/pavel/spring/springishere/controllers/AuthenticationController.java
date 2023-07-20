@@ -1,8 +1,9 @@
 package com.pavel.spring.springishere.controllers;
 
 import com.pavel.spring.springishere.config.*;
-import com.pavel.spring.springishere.dao.*;
+import com.pavel.spring.springishere.dao.UserDao;
 import com.pavel.spring.springishere.dto.*;
+import com.pavel.spring.springishere.repository.UserRepository;
 import org.springframework.http.*;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.*;
@@ -13,18 +14,18 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     private final JwtUtil jwtUtil;
 
 
     public AuthenticationController(
             AuthenticationManager authenticationManager,
-            UserDao userDao,
+            UserRepository userDao,
             JwtUtil jwtUtil
     ) {
         this.authenticationManager = authenticationManager;
-        this.userDao = userDao;
+        this.userRepository = userDao;
         this.jwtUtil = jwtUtil;
     }
 
@@ -33,11 +34,17 @@ public class AuthenticationController {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-        final UserDetails user = userDao.findByEmail(request.getEmail());
+        UserDao user = userRepository.findByEmail(request.getEmail());
+        final UserDetails userDetails = User.builder()
+                .username(user.email())
+                .password(user.password())
+                .authorities("USER")
+                .build();
+
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } else {
-            final String token = jwtUtil.generateToken(user);
+            final String token = jwtUtil.generateToken(userDetails);
             return ResponseEntity.ok(token);
         }
     }
