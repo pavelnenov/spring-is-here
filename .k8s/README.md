@@ -61,8 +61,8 @@ kubectl get pods
 ```bash
 kubectl apply -f auth-client-db-service.yaml
 ```
-
-8. Deploy the api-gateway
+ 
+8. Deploy the api-gateway (we'll create a Service for it later)
 
 ```bash
 kubectl apply -f api-gateway-deployment.yaml
@@ -86,7 +86,7 @@ kubectl get deployments
 kubectl get pods
 ```
 
-10. Deploy a Service authentication-service
+10. Deploy a Service for the authentication client
 
 ```bash
 kubectl apply -f auth-client-service.yaml
