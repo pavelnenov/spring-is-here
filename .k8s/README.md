@@ -114,7 +114,7 @@ kubectl port-forward <db-pod-name> 3306:3306
 Then you can connect to the database using your favorite database client and add some data to the database.
 Add an entry to the user table:
 ```sql
-insert into users (first_name, last_name, email, password) values ("John", "Dow", "john.doe@gmail.com", "qwerty");
+insert into users (first_name, last_name, email, password) values ("John", "Doe", "john.doe@gmail.com", "qwerty");
 ```
 
 Then using the swagger ui you can authenticate and test the application.
@@ -156,7 +156,7 @@ kubectl get configmaps
 ```
 
 
-## Cheat sheet
+## Some More Cheat Sheet
 
 ### Create secret for the password
 ```bash
