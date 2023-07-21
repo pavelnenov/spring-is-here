@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: auth-client-db
 spec:
-  serviceName: "auth-client-db"
+  serviceName: auth-client-db
   replicas: 1
   selector:
     matchLabels:

@@ -10,3 +10,5 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
     );
+
+-- insert into users (first_name, last_name, email, password) values ("Pavel", "Nenov", "pnnenov@gmail.com", "qwerty");
