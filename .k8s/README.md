@@ -10,6 +10,7 @@ https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-con
 3. Build the docker images
 
    3.1 Make sure to go to [api-gateway build.gradle](../api-gateway/build.gradle) and [authentication-client build.gradle](../authentication-client/build.gradle) and change the image name to your own docker hub account. (replace "pavelnenov" with your registry name)
+   3.2 In all for the deployment manifests you need to update "pavelnenov" in the image tag
 
 Build and push to registry:
 
