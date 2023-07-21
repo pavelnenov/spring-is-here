@@ -18,9 +18,13 @@ public class Routes {
 //                        .filters(f -> f.addRequestHeader("Hello", "World"))
                         .uri(httpUri)
                 )
-//                .route(p -> p
-//                        .path("/app/v2/api-docs")
-//                        .uri(httpUri))
+                .route(p -> p
+                        .path("/app/api/v1/greeting/**")
+                        .uri(httpUri)
+                ).route(p -> p
+                        .path("/app/api/v1/greeting/say-goodbye")
+                        .uri(httpUri)
+                )
                 .route(p -> p
                         .path("/auth-service-api-docs")
                         .filters(f -> f

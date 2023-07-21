@@ -41,24 +41,6 @@ public class AuthenticationController {
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
-        Runnable r = () -> {
-            while(true) {
-                System.out.println("Hello from thread");
-                String something = "something";
-                try {
-                    Thread.sleep(500);
-                    System.out.println("I waited for " + something);
-                    something = "something else";
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        Thread t = new Thread(r);
-        t.setName("My thread");
-        t.start();
-
         UserDao user = userRepository.findByEmail(request.getEmail());
 //        final UserDetails userDetails = User.builder()
 //                .username(user.email())
