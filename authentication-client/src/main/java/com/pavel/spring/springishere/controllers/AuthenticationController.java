@@ -1,6 +1,7 @@
 package com.pavel.spring.springishere.controllers;
 
 import com.pavel.spring.springishere.config.JwtUtil;
+import com.pavel.spring.springishere.dao.UserDao;
 import com.pavel.spring.springishere.dto.AuthenticationRequest;
 import com.pavel.spring.springishere.repository.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,26 @@ public class AuthenticationController {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-//        UserDao user = userRepository.findByEmail(request.getEmail());
+
+        Runnable r = () -> {
+            while(true) {
+                System.out.println("Hello from thread");
+                String something = "something";
+                try {
+                    Thread.sleep(500);
+                    System.out.println("I waited for " + something);
+                    something = "something else";
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        Thread t = new Thread(r);
+        t.setName("My thread");
+        t.start();
+
+        UserDao user = userRepository.findByEmail(request.getEmail());
 //        final UserDetails userDetails = User.builder()
 //                .username(user.email())
 //                .password(user.password())

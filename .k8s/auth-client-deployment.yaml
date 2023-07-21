@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication-client-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: authentication-client
+  template:
+    metadata:
+      labels:
+        app: authentication-client
+    spec:
+      containers:
+        - name: authentication-client
+          image: pavelnenov/spring-is-here-authentication-client:v3

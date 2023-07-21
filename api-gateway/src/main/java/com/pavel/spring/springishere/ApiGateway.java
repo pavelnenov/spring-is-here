@@ -1,4 +1,4 @@
-package com.pavel.spring;
+package com.pavel.spring.springishere;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;

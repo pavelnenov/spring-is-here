@@ -1,4 +1,4 @@
-package com.pavel.spring;
+package com.pavel.spring.springishere;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

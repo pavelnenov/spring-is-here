@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: auth-client-db
+spec:
+  serviceName: "auth-client-db"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-client-db
+  template:
+    metadata:
+      labels:
+        app: auth-client-db
+    spec:
+      containers:
+        - name: auth-client-db
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-pass
+                  key: password
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/mysql
+            - name: db-init
+              mountPath: /docker-entrypoint-initdb.d/
+  volumeClaimTemplates:
+    - metadata:
+        name: db-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: db-init
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: authentication-client-pod
+spec:
+  containers:
+    - name: authentication-client
+      image: pavelnenov/spring-is-here-authentication-client

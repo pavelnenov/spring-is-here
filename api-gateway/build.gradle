@@ -37,17 +37,23 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-//jib.from.image = 'openjdk:20'
-//jib.to.image = 'pavelnenov/spring-is-here-api-gateway'
 jib {
     from {
-        image = 'openjdk:20'
+        image = 'openjdk:22-jdk-slim'
+        platforms {
+            platform {
+                architecture = 'arm64'
+                os = 'linux'
+            }
+        }
     }
     to {
+        // change this to your docker hub
         image = 'pavelnenov/spring-is-here-api-gateway'
+        tags = ['v3']
     }
     container {
-        jvmFlags = ['-Xms512m', '-Xmx512m']
-        mainClass = 'com.pavel.spring.ApiGatewayApplication'
+        jvmFlags = ['-Xms512m', '-Xmx512m', '-Dspring.profiles.active=k8s']
+        mainClass = 'com.pavel.spring.springishere.ApiGateway'
     }
 }

@@ -1,4 +1,4 @@
-package com.pavel.spring.controllers;
+package com.pavel.spring.springishere.controllers;
 
 
 import org.springframework.context.annotation.Primary;

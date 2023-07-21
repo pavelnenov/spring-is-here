@@ -1,0 +1,21 @@
+server:
+    port: 8080
+    servlet:
+      context-path: /app
+
+api-gateway:
+  authentication-client-uri: http://authentication-client-service
+
+spring:
+  main:
+    web-application-type: reactive
+
+  cloud:
+    gateway:
+      routes:
+        - id: AuthenticationClient
+          uri: http://uthentication-client-service
+          predicates:
+            - Path=/service1-api-docs
+          filters:
+            - RewritePath=/service1-api-docs, /v2/api-docs

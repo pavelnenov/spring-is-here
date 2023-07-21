@@ -27,17 +27,28 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-//jib.from.image = 'openjdk:20'
-//jib.to.image = 'pavelnenov/spring-is-here-authentication-client'
 jib {
     from {
-        image = 'openjdk:20'
+        image = 'openjdk:22-jdk-slim'
+        platforms {
+            platform {
+                architecture = 'arm64'
+                os = 'linux'
+            }
+        }
     }
     to {
+        // change this to your docker hub
         image = 'pavelnenov/spring-is-here-authentication-client'
+        tags = ['v3']
+
     }
+
+
+
     container {
+
         jvmFlags = ['-Xms512m', '-Xmx512m']
-        mainClass = 'com.pavel.spring.AuthenticationClientApplication'
+        mainClass = 'com.pavel.spring.springishere.AuthenticationClient'
     }
 }

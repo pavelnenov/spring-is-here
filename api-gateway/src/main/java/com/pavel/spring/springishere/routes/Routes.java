@@ -1,4 +1,4 @@
-package com.pavel.spring.routes;
+package com.pavel.spring.springishere.routes;
 
 import org.springframework.cloud.gateway.route.*;
 import org.springframework.cloud.gateway.route.builder.*;

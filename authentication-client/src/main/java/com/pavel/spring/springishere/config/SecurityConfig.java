@@ -44,7 +44,10 @@ public class SecurityConfig {
             "/swagger-ui/**",
 
             // Auth controller
-            "/**/auth/**"
+            "/**/auth/**",
+
+            //heartbeat
+            "/heartbeat"
     };
 
     @Bean
