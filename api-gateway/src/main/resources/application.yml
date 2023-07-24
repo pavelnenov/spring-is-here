@@ -3,6 +3,9 @@ server:
     servlet:
       context-path: /app
 
+api-gateway:
+  authentication-client-uri: http://localhost:8081
+
 spring:
   main:
     web-application-type: reactive

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 class UriConfiguration {
 
+//    @Value("${api-gateway.authentication-client-uri}")
     @Value("${api-gateway.authentication-client-uri}")
     private String destination;
 

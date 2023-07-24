@@ -25,4 +25,5 @@ pluginManagement {
 rootProject.name = 'spring-is-here'
 include 'authentication-client'
 include 'api-gateway'
-include 'api-gateway'
+include 'common'
+

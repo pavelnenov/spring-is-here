@@ -17,11 +17,12 @@ repositories {
     mavenCentral()
 }
 
+def NON_SPRING_BOOT_PROJECTS = [
+        'common'
+]
+
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'com.google.cloud.tools.jib'
 
     repositories {
         mavenCentral()
@@ -32,14 +33,23 @@ subprojects {
             languageVersion = JavaLanguageVersion.of(20)
         }
     }
+
     sourceCompatibility = '20'
     targetCompatibility = '20'
 
-    dependencies {
-        implementation 'io.springfox:springfox-boot-starter:3.0.0'
-        implementation 'org.springframework.boot:spring-boot-starter-parent:2.4.0'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
+    if (!NON_SPRING_BOOT_PROJECTS.contains(project.name)) {
+
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'io.spring.dependency-management'
+        apply plugin: 'com.google.cloud.tools.jib'
+
+        dependencies {
+            implementation 'io.springfox:springfox-boot-starter:3.0.0'
+            implementation 'org.springframework.boot:spring-boot-starter-parent:2.4.0'
+            implementation 'org.springframework.boot:spring-boot-starter-web'
+        }
     }
+
 }
 
 tasks.named('test') {
