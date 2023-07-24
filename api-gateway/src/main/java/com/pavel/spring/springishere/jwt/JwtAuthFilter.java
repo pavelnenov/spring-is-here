@@ -15,15 +15,40 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 @Component
 public class JwtAuthFilter implements GlobalFilter {
 
+    private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+            "/v2/api-docs",
+            "/app/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/app/swagger-ui.html",
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "/v2/api-docs/**",
+            "/swagger-ui/**",
+
+            // Auth controller
+            "/**/auth/**",
+
+            //heartbeat
+            "/heartbeat"
+    };
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
         // do not check auth for auth requests
         String path = exchange.getRequest().getPath().value();
-        if ("/app/api/v1/auth/**".equals(path)) {
-            return chain.filter(exchange);
+        for (String s : AUTH_WHITELIST) {
+            if (s.equals(path)) {
+                return chain.filter(exchange);
+            }
         }
+//        if ("/app/api/v1/auth/**".equals(path)) {
+//            return chain.filter(exchange);
+//        }
 
         String authHeader = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
