@@ -38,7 +38,10 @@ public class JwtAuthFilter implements GlobalFilter {
             "/heartbeat"
     );
 
-    private static final String AUTH_ENDPOINT = "/app/api/v1/auth/authenticate";
+    private static final List<String> AUTH_ENDPOINTS =  List.of(
+            "/app/api/v1/auth/authenticate",
+            "/app/api/v1/auth/register"
+    );
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -50,7 +53,7 @@ public class JwtAuthFilter implements GlobalFilter {
         }
 
         //pass through auth requests
-        if (path.equals(AUTH_ENDPOINT)) {
+        if (AUTH_ENDPOINTS.contains(path)) {
             ServerWebExchange build = exchange.mutate().request(r -> r.headers(h -> h.remove(AUTHORIZATION))).build();
             return chain.filter(build);
         }

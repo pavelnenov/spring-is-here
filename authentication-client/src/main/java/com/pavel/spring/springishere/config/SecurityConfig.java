@@ -14,7 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -66,18 +66,15 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider() {
         return new DaoAuthenticationProvider() {{
             setUserDetailsService(userDetailsService());
-//            setPasswordEncoder(new BCryptPasswordEncoder());
-            setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+            setPasswordEncoder(new BCryptPasswordEncoder());
+//            setPasswordEncoder(NoOpPasswordEncoder.getInstance());
         }};
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
         return (email) -> {
-            UserDao user = userRepository.findByEmail(email);
-            if (user == null) {
-                throw new UsernameNotFoundException("User not found");
-            }
+            UserDao user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
             return User
                     .withUsername(user.email())
