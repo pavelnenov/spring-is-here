@@ -1,42 +1,46 @@
 package com.pavel.spring.springishere.routes;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.route.*;
 import org.springframework.cloud.gateway.route.builder.*;
 import org.springframework.context.annotation.*;
 
 
 @Configuration
-public class Routes {
+public class AuthenticationRoutes {
+
+    @Value("${api-gateway.authentication-client-uri}")
+    private String authenticationClientUri;
 
     @Bean
-    public RouteLocator authenticationRoute(RouteLocatorBuilder builder, UriConfiguration uriConfiguration) {
-        String httpUri = uriConfiguration.getDestination();
+    public RouteLocator authenticationRoute(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(p -> p
                         .path("/app/api/v1/auth/**")
 //                        .filters(f -> f.)
 //                        .filters(f -> f.addRequestHeader("Hello", "World"))
-                        .uri(httpUri)
+                        .uri(authenticationClientUri)
                 )
                 .route(p -> p
                         .path("/app/api/v1/greeting/**")
-                        .uri(httpUri)
+                        .uri(authenticationClientUri)
                 ).route(p -> p
                         .path("/app/api/v1/greeting/say-goodbye")
-                        .uri(httpUri)
+                        .uri(authenticationClientUri)
                 )
                 .route(p -> p
                         .path("/auth-service-api-docs")
                         .filters(f -> f
                                 .rewritePath("/auth-service-api-docs", "/app/v2/api-docs"))
-                        .uri(httpUri))
+                        .uri(authenticationClientUri))
+
                 .route(p -> p
                         .host("*.circuitbreaker.com")
                         .filters(f -> f
                                 .circuitBreaker(config -> config
                                         .setName("mycmd")
                                         .setFallbackUri("forward:/fallback")))
-                        .uri(httpUri))
+                        .uri(authenticationClientUri))
                 .build();
     }
 }

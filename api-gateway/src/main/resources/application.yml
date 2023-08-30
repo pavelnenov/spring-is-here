@@ -5,17 +5,24 @@ server:
 
 api-gateway:
   authentication-client-uri: http://localhost:8081
+  appointment-service-uri: http://localhost:8082
 
 spring:
   main:
     web-application-type: reactive
 
-  cloud:
-    gateway:
-      routes:
-        - id: AuthenticationClient
-          uri: http://localhost:8081
-          predicates:
-            - Path=/service1-api-docs
-          filters:
-            - RewritePath=/service1-api-docs, /v2/api-docs
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: AuthenticationClient
+#          uri: http://localhost:8081
+#          predicates:
+#            - Path=/service1-api-docs
+#          filters:
+#            - RewritePath=/service1-api-docs, /v2/api-docs
+#        - id: AppointmentService
+#          uri: http://localhost:8083
+#          predicates:
+#            - Path=/service2-api-docs
+#          filters:
+#            - RewritePath=/service2-api-docs, /v2/api-docs

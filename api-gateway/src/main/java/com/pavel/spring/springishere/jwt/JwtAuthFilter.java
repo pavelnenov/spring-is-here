@@ -20,6 +20,7 @@ public class JwtAuthFilter implements GlobalFilter {
     private static final List<String> SWAGGER_WHITELIST = List.of(
             // -- Swagger UI v2
             "/v2/api-docs",
+            "**/v2/api-docs",
             "/app/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
