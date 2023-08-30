@@ -1,5 +1,7 @@
 package com.pavel.spring.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -10,24 +12,25 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@Data
 @Table(name = "doctors")
-@NoArgsConstructor(force = true)
-public record Doctor(
+@NoArgsConstructor
+@AllArgsConstructor
+public class Doctor {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "doctor_id")
-        Long doctorId,
+        Long doctorId;
         @Column(name = "first_name")
-        String firstName,
+        String firstName;
         @Column(name = "last_name")
-        String lastName,
+        String lastName;
         @Column(name = "specialization")
-        String specialization,
+        String specialization;
         @Column(name = "hospital_id")
-        Integer hospitalId,
+        Integer hospitalId;
         @Column(name = "email")
-        String email,
+        String email;
         @Column(name = "phone")
-        String phone
-
-) {}
+        String phone;
+}
