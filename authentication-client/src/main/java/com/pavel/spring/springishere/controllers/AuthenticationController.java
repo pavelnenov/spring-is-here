@@ -5,18 +5,21 @@ import com.pavel.spring.springishere.dto.AuthenticationRequest;
 import com.pavel.spring.springishere.dto.RegistrationRequest;
 import com.pavel.spring.springishere.jwt.JwtUtil;
 import com.pavel.spring.springishere.repository.UserRepository;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(
+        origins = {"http://localhost:8080"},
+        maxAge = 3600
+)
 @RestController
 @RequestMapping("/api/v1/auth")
+@ComponentScan("com.pavel.spring.springishere")
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;

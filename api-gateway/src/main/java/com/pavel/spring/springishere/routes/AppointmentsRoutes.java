@@ -19,7 +19,12 @@ public class AppointmentsRoutes {
                 .route(p -> p
                         .path("/appointment-service-api-docs")
                         .filters(f -> f
-                                .rewritePath("/appointment-service-api-docs", "/app/v2/api-docs"))
+                                .rewritePath("/appointment-service-api-docs", "/app/v3/api-docs"))
+                        .uri(appointmentServiceUri))
+                .route(p -> p
+                        .path("/doctors")
+                        .filters(f -> f
+                                .rewritePath("/doctors", "/app/doctors"))
                         .uri(appointmentServiceUri))
                 .build();
 

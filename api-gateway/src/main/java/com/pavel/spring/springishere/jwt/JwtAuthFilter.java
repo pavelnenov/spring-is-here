@@ -18,25 +18,22 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 public class JwtAuthFilter implements GlobalFilter {
 
     private static final List<String> SWAGGER_WHITELIST = List.of(
-            // -- Swagger UI v2
-            "/v2/api-docs",
-            "**/v2/api-docs",
-            "/app/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/app/swagger-ui.html",
-            "/webjars/**",
-            "/v3/api-docs/**",
-            "/v2/api-docs/**",
+            // Swagger3
+            "/app/v3/api-docs",
             "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/index.html",
+
 
             // Auth controller
             "/**/auth/**",
 
             //heartbeat
-            "/heartbeat"
+            "/heartbeat",
+
+            "/app/api/v1/greeting"
+
     );
 
     private static final List<String> AUTH_ENDPOINTS =  List.of(
@@ -46,7 +43,6 @@ public class JwtAuthFilter implements GlobalFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-
         // do not check auth for auth requests
         String path = exchange.getRequest().getPath().value();
         if (SWAGGER_WHITELIST.contains(path)) {

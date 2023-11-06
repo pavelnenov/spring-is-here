@@ -26,4 +26,5 @@ spring:
 logging:
   level:
     org.springframework.web: DEBUG
+    org.springframework.kafka: INFO
 

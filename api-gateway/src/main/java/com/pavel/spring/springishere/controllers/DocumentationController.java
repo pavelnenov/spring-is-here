@@ -1,31 +1,23 @@
 package com.pavel.spring.springishere.controllers;
 
 
+import org.springdoc.core.GroupedOpenApi;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import springfox.documentation.swagger.web.SwaggerResource;
-import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Primary
-public class DocumentationController implements SwaggerResourcesProvider {
+public class DocumentationController  {
 
-    @Override
-    public List<SwaggerResource> get() {
-        List<SwaggerResource> resources = new ArrayList<>();
-        resources.add(swaggerResource("AppointmentService", "/appointment-service-api-docs", "2.0"));
-        resources.add(swaggerResource("AuthenticationClient", "/auth-service-api-docs", "2.0"));
-        return resources;
-    }
-
-    private SwaggerResource swaggerResource(String name, String location, String version) {
-        SwaggerResource swaggerResource = new SwaggerResource();
-        swaggerResource.setName(name);
-        swaggerResource.setLocation(location);
-        swaggerResource.setSwaggerVersion(version);
-        return swaggerResource;
+    @Bean
+    public List<GroupedOpenApi> groupedOpenApis() {
+        List<GroupedOpenApi> groups = new ArrayList<>();
+        groups.add(GroupedOpenApi.builder().group("AppointmentService").pathsToMatch("/appointment-service-api-docs").build());
+        groups.add(GroupedOpenApi.builder().group("AuthenticationClient").pathsToMatch("/auth-service-api-docs").build());
+        return groups;
     }
 }

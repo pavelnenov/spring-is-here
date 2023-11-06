@@ -22,7 +22,7 @@ public class AuthenticationRoutes {
                         .uri(authenticationClientUri)
                 )
                 .route(p -> p
-                        .path("/app/api/v1/greeting/**")
+                        .path("/app/api/v1/greeting")
                         .uri(authenticationClientUri)
                 ).route(p -> p
                         .path("/app/api/v1/greeting/say-goodbye")
@@ -31,7 +31,7 @@ public class AuthenticationRoutes {
                 .route(p -> p
                         .path("/auth-service-api-docs")
                         .filters(f -> f
-                                .rewritePath("/auth-service-api-docs", "/app/v2/api-docs"))
+                                .rewritePath("/auth-service-api-docs", "/app/v3/api-docs"))
                         .uri(authenticationClientUri))
 
                 .route(p -> p
@@ -41,6 +41,10 @@ public class AuthenticationRoutes {
                                         .setName("mycmd")
                                         .setFallbackUri("forward:/fallback")))
                         .uri(authenticationClientUri))
+                .route(p -> p
+                        .path("/app/heartbeat")
+                        .uri(authenticationClientUri))
+
                 .build();
     }
 }

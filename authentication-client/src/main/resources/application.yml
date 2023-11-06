@@ -2,6 +2,7 @@ server:
   servlet:
     context-path: /app
   port: 8081
+
 #  ssl:
 #    key-store: keystore.p12
 #    key-store-password: pavelnenov
@@ -23,4 +24,8 @@ spring:
 logging:
   level:
     org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.cloud.gateway: DEBUG
 
+swaggerUrl:
+    url: http://localhost:8081/app/swagger-ui/index.html
